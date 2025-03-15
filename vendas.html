@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusneiro</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #007bff, #00d4ff);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: white;
+        }
+        header {
+            background: #0056b3;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            background: #004494;
+            margin: 0;
+        }
+        nav ul li {
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px;
+            display: block;
+        }
+        nav ul li a:hover {
+            background: #003377;
+            border-radius: 5px;
+        }
+        #hero {
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 20px;
+        }
+        #hero h2 {
+            font-size: 32px;
+            color: white;
+        }
+        .btn {
+            display: inline-block;
+            background: #0056b3;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: #003f8c;
+        }
+        #planos {
+            padding: 50px 20px;
+        }
+        .planos-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .plano {
+            background: white;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            width: 300px;
+        }
+        .destaque {
+            border: 3px solid #007bff;
+        }
+        footer {
+            background: #0056b3;
+            padding: 20px;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>Automatize Seu WhatsApp!</header>
+    <nav>
+        <ul>
+            <li><a href="#planos">Planos</a></li>
+            <li><a href="#Sugestão">Sugestão</a></li>
+            <li><a href="cont.html">Contato</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+    
+    <section id="hero">
+        <h2>Automatize seu Atendimento no WhatsApp!</h2>
+        <p>Responda clientes instantaneamente e aumente suas vendas.</p>
+        <a href="#planos" class="btn">Ver Planos</a>
+    </section>
+    
+    <section id="planos">
+        <h2>Planos de Assinatura</h2>
+        <div class="planos-container">
+            <div class="plano">
+                <h3>Básico</h3>
+                <p>Respostas automáticas simples.</p>
+                <p><strong>R$ 80/mês</strong></p>
+                <a href="pay.html" class="btn">Assinar</a>
+            </div>
+            <div class="plano destaque">
+                <h3>Profissional</h3>
+                <p>Whitelist, blacklist e suporte prioritário.</p>
+                <p><strong>R$ 129/mês</strong></p>
+                <a href="checkout.html" class="btn">Assinar</a>
+            </div>
+            <div class="plano">
+                <h3>Premium</h3>
+                <p>Automação avançada e relatórios.</p>
+                <p><strong>R$ 299/mês</strong></p>
+                <a href="checkout.html" class="btn">Assinar</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Bot de WhatsApp. Todos os direitos reservados.</p>
+    </footer>
+</body>
+</html>

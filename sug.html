@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sugestões de Melhoria</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f0f4ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 420px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2b60ff;
+            margin-bottom: 10px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        textarea {
+            width: calc(100% - 16px);
+            height: 100px;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+            border: 1px solid #ccd4ff;
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            background: #2b60ff;
+            color: white;
+            font-weight: bold;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #1e4ad8;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            font-size: 14px;
+            color: green;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Envie sua Sugestão</h1>
+        <textarea id="suggestionInput" placeholder="Digite sua sugestão aqui..."></textarea>
+        <button onclick="sendSuggestion()">Enviar Sugestão</button>
+        <p class="feedback" id="feedback">Sugestão enviada com sucesso! 🎉</p>
+    </div>
+
+    <script>
+        const socket = io();
+
+        function sendSuggestion() {
+            const suggestion = document.getElementById("suggestionInput").value.trim();
+            if (suggestion) {
+                socket.emit("sendSuggestion", suggestion);
+                document.getElementById("suggestionInput").value = "";
+                document.getElementById("feedback").style.display = "block";
+                setTimeout(() => {
+                    document.getElementById("feedback").style.display = "none";
+                }, 3000);
+            }
+        }
+    </script>
+</body>
+</html>

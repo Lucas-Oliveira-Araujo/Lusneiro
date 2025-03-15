@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusneiro-Pagamento</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #004aad, #00aaff);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #004aad;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            background: #004aad;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #00348d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pagamento Seguro</h1>
+        <form action="processar_pagamento.php" method="POST">
+            <label for="nome">Nome no Cartão</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="numero_cartao">Número do Cartão</label>
+            <input type="text" id="numero_cartao" name="numero_cartao" required maxlength="16" placeholder="1234 5678 9012 3456">
+
+            <label for="validade">Data de Validade</label>
+            <input type="month" id="validade" name="validade" required>
+
+            <label for="cvv">CVV</label>
+            <input type="text" id="cvv" name="cvv" required maxlength="3" placeholder="123">
+
+            <button type="submit">Confirmar Pagamento</button>
+        </form>
+    </div>
+</body>
+</html>

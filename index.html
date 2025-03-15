@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lusneiro</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: #eef2ff;
+            color: #333;
+        }
+        header {
+            background: #2b60ff;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 22px;
+            font-weight: 600;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .container {
+            width: 420px;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 140px auto 50px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            background: #2b60ff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #1e4ad8;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 8px;
+            font-size: 16px;
+            border: 1px solid #ccd4ff;
+        }
+        .box {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            text-align: left;
+        }
+        #qrCode {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🟢 Lusneiro</h1>
+    </header>
+    <div class="container">
+        <h2>Iniciar Bot</h2>
+        <button onclick="startBot()">Iniciar Bot</button>
+        <div id="statusBox" class="status-box">Aguardando conexão...</div>
+        <img id="qrCode" src="" alt="QR Code para autenticação">
+        
+        <div class="box">
+            <h2>Gerenciar Listas</h2>
+            <input type="text" id="whitelistInput" placeholder="Adicionar número à Whitelist">
+            <button onclick="addToList('whitelist')">Adicionar à Whitelist</button>
+            <input type="text" id="blacklistInput" placeholder="Adicionar número à Blacklist">
+            <button onclick="addToList('blacklist')">Adicionar à Blacklist</button>
+        </div>
+        
+        <div class="box">
+            <h2>Selecionar Template</h2>
+            <select id="templateSelect">
+                <option value="loja">Loja</option>
+                <option value="clinica">Clínica</option>
+                <option value="servico">Serviço</option>
+                <option value="pagamento">Pagamento</option>
+                <option value="avaliacao">Avaliação</option>
+                <option value="atendimento">Atendimento</option>
+            </select>
+            <button onclick="setTemplate()">Aplicar Template</button>
+            <input type="text" id="customMessage" placeholder="Mensagem personalizada">
+            <button onclick="setCustomMessage()">Definir Personalizada</button>
+        </div>
+    </div>
+    
+    <script>
+        const socket = io();
+        function startBot() {
+            socket.emit("startBot");
+            document.getElementById("statusBox").textContent = "🟢 Bot iniciando...";
+        }
+        
+        socket.on("status", (status) => {
+            document.getElementById("statusBox").textContent = status;
+        });
+        
+        socket.on("qr", (qrUrl) => {
+            const qrCodeImg = document.getElementById("qrCode");
+            qrCodeImg.src = qrUrl;
+            qrCodeImg.style.display = "block";
+        });
+        
+        function addToList(type) {
+            const inputId = type === 'whitelist' ? 'whitelistInput' : 'blacklistInput';
+            const number = document.getElementById(inputId).value;
+            if (number) {
+                socket.emit("addToList", { type, number });
+                document.getElementById(inputId).value = "";
+                alert(`${number} adicionado à ${type}`);
+            }
+        }
+        
+        function setTemplate() {
+            const template = document.getElementById("templateSelect").value;
+            socket.emit("setTemplate", template);
+            alert(`Template definido para: ${template}`);
+        }
+        
+        function setCustomMessage() {
+            const message = document.getElementById("customMessage").value;
+            if (message.trim()) {
+                socket.emit("setCustom", message);
+                alert("Mensagem personalizada definida com sucesso!");
+            } else {
+                alert("A mensagem personalizada não pode estar vazia!");
+            }
+        }
+    </script>
+</body>
+</html>
